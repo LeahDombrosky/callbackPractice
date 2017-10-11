@@ -23,7 +23,10 @@ and what you should write is the sayHi function that makes the code above work,
 // 1. Write a function called first that returns the first item of the array using a callback function
 
   // Code Here
+function first(arr, cb){
+  var firstName = cb(arr[0]);
 
+}
   
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 first(names, function(firstName){
@@ -36,7 +39,9 @@ first(names, function(firstName){
 // 2. Write a function called last which returns the last item of the array using a callback function.
 
   //Code Here
-
+function last(arr, cb){
+  var lastName = cb(arr[arr.length -1])
+}
 
 
 last(names, function(lastName){
@@ -49,7 +54,9 @@ last(names, function(lastName){
 // 3. Write a function called multiply that multiplies two numbers. Invoke the callback with the result of the multiplication. 
 
   //Code Here
-
+function multiply(num1, num2, cb){
+  var answer = cb(num1*num2);
+}
 
 
 multiply(4, 3, function(answer){
@@ -63,7 +70,13 @@ multiply(4, 3, function(answer){
 // If the name does not exist, invoke the callback with false as an argument.
 
   //Code Here 
-
+  function contains(arr, name, cb){
+    if (arr.indexOf(name) !== -1){
+      var result = cb(true);
+    } else{
+      cb(false);
+    }
+  }
 
 
 
@@ -82,7 +95,16 @@ contains(names, 'Colt', function(result){
 
   //Code Here
 
-
+    function uniq(arry, callback){
+    var uniqArr = [];
+    for (var i = 0; i < arry.length; i++){
+      if (uniqArr.indexOf(arry[i]) === -1){
+        uniqArr.push(arry[i])
+      } 
+         
+      }
+      return callback(uniqArr) ;
+    }
 
 uniq(names, function(uniqArr){
   console.log('The new names array with all the duplicate items removed is ', uniqArr);
@@ -92,8 +114,14 @@ uniq(names, function(uniqArr){
 // 6. Write a function called each that takes in an array of names. For each name in the array, invoke the callback and pass in the name and the name's index as arguments.
 
     //Code Here 
+   
 
-
+    function each(arr, cb){
+      for (var i = 0; i < arr.length; i++){
+        cb(arr[i], i);
+    }
+  }
+  
 
 each(names, function(item, indice){
   console.log('The item in the ' + indice + ' position is ' + item)
@@ -106,6 +134,24 @@ each(names, function(item, indice){
 
 // Code here
 
+// function getUserById(id, cb){
+//   for (var key in users){
+//     if (users[key].id === id) {
+//           cb(users[key])
+//       }
+//   }
+// }
+
+  //   var getUserById = function(key, cb) {
+  //   for (var i = 0; i < users.length; i++) {
+  //       if (users[i].id === key) {
+  //           cb(users[i])
+  //       }
+  //   }
+  // };
+  var getUserById = (arr, id, fun) => {
+     fun(arr.find((x) => {return x.id == id;}));
+    }
 
 
 var users = [
@@ -128,6 +174,7 @@ var users = [
     address: '192 East 32 North'
   },
 ];
+
 
 getUserById(users, '16t', function(user){
   console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address); 
